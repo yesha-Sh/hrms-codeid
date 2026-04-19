@@ -33,6 +33,7 @@ Workflow files:
 
 ### Railway
 - `RAILWAY_TOKEN`
+- optional: `RAILWAY_API_TOKEN`
 - `RAILWAY_PROJECT_ID`
 - `RAILWAY_ENVIRONMENT`
 - `RAILWAY_SERVICE`
@@ -74,6 +75,10 @@ The GitHub deploy workflow now syncs these Railway variables before each deploy:
 - `DATABASE_URL` from `NEON_DATABASE_URL`
 - `JWT_ACCESS_SECRET` from GitHub secrets
 - `JWT_REFRESH_SECRET` from GitHub secrets
+
+Important:
+- If you only provide `RAILWAY_TOKEN`, the workflow will still deploy, but it will skip `railway link` and `railway variables set`.
+- To automate Railway variable sync from GitHub Actions, add `RAILWAY_API_TOKEN` with account/workspace-level access.
 
 ### Recommended Railway setting
 - If you also connect the repo directly in Railway, enable **Wait for CI** or disable Railway auto-deploys to avoid duplicate deploys.

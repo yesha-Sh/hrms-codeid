@@ -23,9 +23,14 @@ Open:
 
 ### Railway
 - `RAILWAY_TOKEN`
+- optional: `RAILWAY_API_TOKEN`
 - `RAILWAY_PROJECT_ID`
 - `RAILWAY_ENVIRONMENT`
 - `RAILWAY_SERVICE`
+
+Notes:
+- `RAILWAY_TOKEN` is enough for deploy-focused workflow usage.
+- `RAILWAY_API_TOKEN` is only needed if you want GitHub Actions to run `railway link` and `railway variables set` automatically.
 
 ## Helper script
 If you already have GitHub CLI installed and authenticated, you can set all secrets from:
