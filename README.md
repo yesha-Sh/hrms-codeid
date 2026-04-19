@@ -49,6 +49,7 @@ C:\laragon\www\HRMS
 |   `-- README.md
 |-- docs
 |   |-- github-actions-deploy.md
+|   |-- github-secrets-checklist.md
 |   |-- test-accounts.md
 |   `-- README.md
 |-- frontend
@@ -209,6 +210,7 @@ This repo is prepared for GitHub CI/CD with:
 Deployment and secret setup guide:
 
 - [C:\laragon\www\HRMS\docs\github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
+- [C:\laragon\www\HRMS\docs\github-secrets-checklist.md](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
 
 ## What The Automated Tests Cover
 
@@ -246,3 +248,4 @@ Deployment and secret setup guide:
 - Documentation index: [C:\laragon\www\HRMS\docs\README.md](C:\laragon\www\HRMS\docs\README.md)
 - Test accounts: [C:\laragon\www\HRMS\docs\test-accounts.md](C:\laragon\www\HRMS\docs\test-accounts.md)
 - GitHub deploy guide: [C:\laragon\www\HRMS\docs\github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
+- GitHub secrets checklist: [C:\laragon\www\HRMS\docs\github-secrets-checklist.md](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
