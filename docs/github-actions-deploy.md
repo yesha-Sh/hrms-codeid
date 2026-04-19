@@ -27,6 +27,7 @@ Workflow files:
 2. Create a new project from the GitHub repository.
 3. Set the project root to `frontend/`.
 4. Confirm the framework is Vite.
+5. The repo already includes [C:\\laragon\\www\\HRMS\\frontend\\vercel.json](C:\laragon\www\HRMS\frontend\vercel.json) so SPA route refreshes rewrite to `index.html`.
 
 ### Add environment variables in Vercel
 1. Open the Vercel project.
@@ -51,6 +52,7 @@ Workflow files:
    - project id
    - environment name
    - service name
+5. Deploy the `backend/` directory. The repo already includes [C:\\laragon\\www\\HRMS\\backend\\Dockerfile](C:\laragon\www\HRMS\backend\Dockerfile) so Railway can build the API predictably.
 
 ### Add backend environment variables in Railway
 Set these in Railway service variables:
