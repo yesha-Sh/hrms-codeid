@@ -13,6 +13,8 @@ jobs:
   deploy:
     name: Deploy backend
     runs-on: ubuntu-latest
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,7 +27,16 @@ jobs:
       - name: Install Railway CLI
         run: npm install --global @railway/cli
 
+      - name: Link Railway project context
+        run: railway link --project "${{ secrets.RAILWAY_PROJECT_ID }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --service "${{ secrets.RAILWAY_SERVICE }}"
+
+      - name: Sync Railway runtime variables
+        run: |
+          railway variables set APP_ENV=production --service "${{ secrets.RAILWAY_SERVICE }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --skip-deploys
+          railway variables set FRONTEND_ORIGIN=https://hrms-codeid.vercel.app --service "${{ secrets.RAILWAY_SERVICE }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --skip-deploys
+          railway variables set DATABASE_URL="${{ secrets.NEON_DATABASE_URL }}" --service "${{ secrets.RAILWAY_SERVICE }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --skip-deploys
+          railway variables set JWT_ACCESS_SECRET="${{ secrets.JWT_ACCESS_SECRET }}" --service "${{ secrets.RAILWAY_SERVICE }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --skip-deploys
+          railway variables set JWT_REFRESH_SECRET="${{ secrets.JWT_REFRESH_SECRET }}" --service "${{ secrets.RAILWAY_SERVICE }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --skip-deploys
+
       - name: Deploy backend service to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: railway up backend --path-as-root --ci --service "${{ secrets.RAILWAY_SERVICE }}" --environment "${{ secrets.RAILWAY_ENVIRONMENT }}" --project "${{ secrets.RAILWAY_PROJECT_ID }}"

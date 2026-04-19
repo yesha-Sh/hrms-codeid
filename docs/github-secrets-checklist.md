@@ -12,6 +12,10 @@ Open:
 - `NEON_DATABASE_URL`
   - value: your Neon production connection string
 
+### Backend app secrets
+- `JWT_ACCESS_SECRET`
+- `JWT_REFRESH_SECRET`
+
 ### Vercel
 - `VERCEL_TOKEN`
 - `VERCEL_ORG_ID`
@@ -35,6 +39,8 @@ cd C:\laragon\www\HRMS
 .\scripts\set-github-secrets.ps1 `
   -Repo 'yesha-Sh/hrms-codeid' `
   -NeonDatabaseUrl '<NEON_DATABASE_URL>' `
+  -JwtAccessSecret '<JWT_ACCESS_SECRET>' `
+  -JwtRefreshSecret '<JWT_REFRESH_SECRET>' `
   -VercelToken '<VERCEL_TOKEN>' `
   -VercelOrgId '<VERCEL_ORG_ID>' `
   -VercelProjectId '<VERCEL_PROJECT_ID>' `
