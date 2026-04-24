@@ -60,7 +60,6 @@ HRMS
 |   `-- README.md
 |-- docs
 |   |-- test-accounts.md
-|   |-- github-actions-deploy.md
 |   `-- README.md
 `-- README.md
 ```
@@ -313,13 +312,6 @@ npm run build
 cd frontend
 npm run test:e2e
 ```
-
-## For Deployment
-
-Production deployment docs are separated from local installation docs:
-
-- [docs/github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
-- [docs/github-secrets-checklist.md](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
 
 ## Additional Documentation
 

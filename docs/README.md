@@ -3,8 +3,6 @@
 This folder contains lightweight project documentation that is safe to keep in the GitHub repo.
 
 ## Available Docs
-- [GitHub Deploy Guide](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
-- [GitHub Secrets Checklist](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
 - [Test Accounts](C:\laragon\www\HRMS\docs\test-accounts.md)
 
 ## Notes
