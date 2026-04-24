@@ -1,17 +1,8 @@
-# PT. CODEID HRMS
-
-HRMS internship project for **PT. CODEID** built with:
-
-- `frontend/`: React + Vite + TypeScript
-- `backend/`: Go + Chi + GORM + PostgreSQL
-
-This README is written for someone who wants to:
+# HRMS
 
 1. clone the project from GitHub
 2. run it on localhost
 3. log in with seeded accounts
-
-So yes, **your teacher can clone this repo and run it locally**, as long as the prerequisites below are installed and the setup steps are followed.
 
 ## Features
 
@@ -72,7 +63,7 @@ Install these first:
 - `Go` `1.25+`
 - `Node.js` `22+`
 - `npm`
-- `PostgreSQL` `15+` or `16+`
+- `PostgreSQL` `16+`
 
 Recommended local ports:
 
@@ -97,7 +88,6 @@ Example with `psql`:
 createdb -U postgres hrms
 ```
 
-If your PostgreSQL username or password is different, that is fine. You only need to match the values later in `backend/.env`.
 
 ## 3. Configure Backend Environment
 
@@ -304,13 +294,6 @@ go test ./...
 ```powershell
 cd frontend
 npm run build
-```
-
-### Frontend E2E tests
-
-```powershell
-cd frontend
-npm run test:e2e
 ```
 
 ## Additional Documentation
