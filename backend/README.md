@@ -2,10 +2,6 @@
 
 Backend API for the PT. CODEID HRMS project.
 
-For full localhost installation from clone to login, use the main guide first:
-
-- [README.md](C:\laragon\www\HRMS\README.md)
-
 ## What This Backend Does
 
 - auth and session flow
