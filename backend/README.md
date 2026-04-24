@@ -2,20 +2,16 @@
 
 Backend API for the PT. CODEID HRMS project.
 
-## Stack
-- Go
-- Chi
-- GORM
-- PostgreSQL
-- golang-migrate
-- JWT
-- Argon2id
+For full localhost installation from clone to login, use the main guide first:
 
-## Main Responsibilities
+- [README.md](C:\laragon\www\HRMS\README.md)
+
+## What This Backend Does
+
 - auth and session flow
 - role-based authorization
 - employee, attendance, leave, team, assignment, holiday, and audit APIs
-- PT. CODEID seed/reference data
+- PT. CODEID seed and demo data
 
 ## Important Directories
 
@@ -27,42 +23,25 @@ backend
 |   |-- seed-admin
 |   `-- seed-demo
 |-- internal
-|   |-- auth
-|   |-- config
-|   |-- db
-|   |-- middleware
-|   |-- models
-|   |-- modules
-|   `-- server
 |-- migrations
 `-- README.md
 ```
 
-## Environment
+## Local Environment
 
 Example file:
 
-- [C:\laragon\www\HRMS\backend\.env.example](C:\laragon\www\HRMS\backend\.env.example)
+- [backend/.env.example](C:\laragon\www\HRMS\backend\.env.example)
 
-Key values:
-- `APP_ENV`
-- `HTTP_PORT`
-- `DATABASE_URL`
-- `FRONTEND_ORIGIN`
-- `DB_HOST`
-- `DB_PORT`
-- `DB_NAME`
-- `DB_USER`
-- `DB_PASSWORD`
-- `DB_SSLMODE`
-- `JWT_ACCESS_SECRET`
-- `JWT_REFRESH_SECRET`
-- `JWT_ACCESS_TTL`
-- `JWT_REFRESH_TTL`
-- `ADMIN_SEED_EMAIL`
-- `ADMIN_SEED_PASSWORD`
+Create a local file:
 
-## Running Locally
+```powershell
+Copy-Item .env.example .env
+```
+
+Default local values are written for localhost development.
+
+## Run Backend Only
 
 ```powershell
 cd C:\laragon\www\HRMS\backend
@@ -72,33 +51,39 @@ go run ./cmd/seed-demo
 go run ./cmd/api
 ```
 
-## Migrations
+API:
 
-Run up:
+- `http://localhost:8080`
+
+Health check:
+
+- `http://localhost:8080/healthz`
+
+## Useful Commands
+
+### Migrations
 
 ```powershell
 go run ./cmd/migrate up
-```
-
-Run down:
-
-```powershell
 go run ./cmd/migrate down
 ```
 
-## Seed Commands
-
-Admin user:
+### Seeds
 
 ```powershell
 go run ./cmd/seed-admin
-```
-
-Full PT. CODEID demo/reference data:
-
-```powershell
 go run ./cmd/seed-demo
 ```
+
+### Tests
+
+```powershell
+go test ./...
+```
+
+Main integration test:
+
+- [backend/tests/integration/api_test.go](C:\laragon\www\HRMS\backend\tests\integration\api_test.go)
 
 ## API Areas
 
@@ -128,31 +113,3 @@ go run ./cmd/seed-demo
 - `GET/POST/PUT/DELETE /api/v1/jobs`
 - `GET/POST/PUT/DELETE /api/v1/holidays`
 - `GET /api/v1/audit-logs`
-
-## Automated Tests
-
-Run all tests:
-
-```powershell
-cd C:\laragon\www\HRMS\backend
-go test ./...
-```
-
-Included:
-- auth unit tests
-- Postgres integration tests with temporary DB setup
-
-Main test file:
-
-- [C:\laragon\www\HRMS\backend\tests\integration\api_test.go](C:\laragon\www\HRMS\backend\tests\integration\api_test.go)
-
-## Seeded Accounts
-
-See root project README:
-
-- [C:\laragon\www\HRMS\README.md](C:\laragon\www\HRMS\README.md)
-
-Extended documentation:
-
-- [C:\laragon\www\HRMS\docs\github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
-- [C:\laragon\www\HRMS\docs\test-accounts.md](C:\laragon\www\HRMS\docs\test-accounts.md)

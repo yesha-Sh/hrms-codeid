@@ -1,23 +1,24 @@
 # PT. CODEID HRMS
 
-HRMS internship project for **PT. CODEID** with:
+HRMS internship project for **PT. CODEID** built with:
 
 - `frontend/`: React + Vite + TypeScript
 - `backend/`: Go + Chi + GORM + PostgreSQL
 
-The system is built around PT. CODEID's organization structure, seeded demo data, role-based access, and realistic HR flows for:
+This README is written for someone who wants to:
 
-- `admin`
-- `manager`
-- `employee`
+1. clone the project from GitHub
+2. run it on localhost
+3. log in with seeded accounts
+
+So yes, **your teacher can clone this repo and run it locally**, as long as the prerequisites below are installed and the setup steps are followed.
 
 ## Features
 
-### Core HRMS
 - authentication with email/password
 - JWT access token + refresh token flow
 - Argon2id password hashing
-- role-based routing and authorization
+- role-based access for `admin`, `manager`, and `employee`
 - employee management
 - department management
 - job management
@@ -25,41 +26,7 @@ The system is built around PT. CODEID's organization structure, seeded demo data
 - leave request and approval flow
 - holiday management
 - audit logs
-- profile page
-
-### PT. CODEID Structure
-- seeded PT. CODEID organization
-- division, subdepartment, and team manager structure
-- cross-department team support
-- remote and client-based worker handling
-- seeded realistic employees, teams, attendance, leave, and assignments
-
-### Testing
-- backend automated auth + integration tests
-- frontend Playwright E2E regression suite
-
-## Monorepo Structure
-
-```text
-C:\laragon\www\HRMS
-|-- backend
-|   |-- cmd
-|   |-- internal
-|   |-- migrations
-|   `-- README.md
-|-- docs
-|   |-- github-actions-deploy.md
-|   |-- github-secrets-checklist.md
-|   |-- test-accounts.md
-|   `-- README.md
-|-- frontend
-|   |-- src
-|   |-- tests
-|   `-- README.md
-|-- .github
-|   `-- workflows
-`-- README.md
-```
+- PT. CODEID seeded organization structure
 
 ## Tech Stack
 
@@ -77,53 +44,177 @@ C:\laragon\www\HRMS
 - Vite
 - TypeScript
 - React Router
-- Playwright
 
-## Quick Start
+## Project Structure
 
-### 1. Backend setup
+```text
+HRMS
+|-- backend
+|   |-- cmd
+|   |-- internal
+|   |-- migrations
+|   `-- README.md
+|-- frontend
+|   |-- src
+|   |-- tests
+|   `-- README.md
+|-- docs
+|   |-- test-accounts.md
+|   |-- github-actions-deploy.md
+|   `-- README.md
+`-- README.md
+```
 
-Copy or update backend environment values:
+## Prerequisites
 
-File: [C:\laragon\www\HRMS\backend\.env.example](C:\laragon\www\HRMS\backend\.env.example)
+Install these first:
 
-Then run:
+- `Git`
+- `Go` `1.25+`
+- `Node.js` `22+`
+- `npm`
+- `PostgreSQL` `15+` or `16+`
+
+Recommended local ports:
+
+- backend: `8080`
+- frontend: `5173`
+- PostgreSQL: `5432`
+
+## 1. Clone the Repository
 
 ```powershell
-cd C:\laragon\www\HRMS\backend
+git clone https://github.com/yesha-Sh/hrms-codeid.git
+cd hrms-codeid
+```
+
+## 2. Prepare PostgreSQL
+
+Create a local database named `hrms`.
+
+Example with `psql`:
+
+```powershell
+createdb -U postgres hrms
+```
+
+If your PostgreSQL username or password is different, that is fine. You only need to match the values later in `backend/.env`.
+
+## 3. Configure Backend Environment
+
+Copy the example file:
+
+```powershell
+Copy-Item .\backend\.env.example .\backend\.env
+```
+
+Default local example already assumes:
+
+- host: `127.0.0.1`
+- port: `5432`
+- database: `hrms`
+- user: `postgres`
+- password: `postgres`
+
+If your PostgreSQL credentials are different, edit:
+
+- [backend/.env.example](C:\laragon\www\HRMS\backend\.env.example)
+
+or the copied local file:
+
+- `backend/.env`
+
+Important local backend values:
+
+```env
+APP_ENV=development
+HTTP_PORT=8080
+FRONTEND_ORIGIN=http://localhost:5173
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_NAME=hrms
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_SSLMODE=disable
+JWT_ACCESS_SECRET=change-me-access-secret
+JWT_REFRESH_SECRET=change-me-refresh-secret
+JWT_ACCESS_TTL=15m
+JWT_REFRESH_TTL=168h
+ADMIN_SEED_EMAIL=admin@northstar.id
+ADMIN_SEED_PASSWORD=ChangeMe123!
+```
+
+## 4. Run Backend Migrations and Seed Data
+
+Open a terminal in the project root, then run:
+
+```powershell
+cd backend
 go run ./cmd/migrate up
 go run ./cmd/seed-admin
 go run ./cmd/seed-demo
+```
+
+If these commands succeed, your local database is ready.
+
+## 5. Start the Backend API
+
+Still in `backend/`:
+
+```powershell
 go run ./cmd/api
 ```
 
-API default:
+Backend will run at:
 
-- `http://localhost:8080`
+- [http://localhost:8080](http://localhost:8080)
 
 Health check:
 
-- `http://localhost:8080/healthz`
+- [http://localhost:8080/healthz](http://localhost:8080/healthz)
 
-### 2. Frontend setup
+Expected response:
 
-File: [C:\laragon\www\HRMS\frontend\.env.example](C:\laragon\www\HRMS\frontend\.env.example)
+```json
+{"status":"ok"}
+```
 
-Then run:
+## 6. Configure Frontend Environment
+
+Open a second terminal from the project root.
+
+Copy the example file:
 
 ```powershell
-cd C:\laragon\www\HRMS\frontend
+Copy-Item .\frontend\.env.example .\frontend\.env
+```
+
+Default frontend env:
+
+```env
+VITE_API_BASE_URL=http://localhost:8080/api/v1
+```
+
+## 7. Install Frontend Dependencies
+
+```powershell
+cd frontend
 npm install
+```
+
+## 8. Start the Frontend
+
+```powershell
 npm run dev
 ```
 
-Frontend default:
+Frontend will run at:
 
-- `http://localhost:5173`
+- [http://localhost:5173](http://localhost:5173)
 
-## Demo Accounts
+## 9. Login with Seeded Accounts
 
-Primary accounts:
+Primary demo accounts:
 
 - Admin: `admin@northstar.id` / `ChangeMe123!`
 - Team manager: `fajar.maulana@codeid.co.id` / `Manager123!`
@@ -131,121 +222,107 @@ Primary accounts:
 - Division manager: `dimas.kusuma@codeid.co.id` / `Manager123!`
 - Employee: `nabila.putri@codeid.co.id` / `Employee123!`
 
-Full seeded account matrix:
+More accounts:
 
-- [C:\laragon\www\HRMS\docs\test-accounts.md](C:\laragon\www\HRMS\docs\test-accounts.md)
+- [docs/test-accounts.md](C:\laragon\www\HRMS\docs\test-accounts.md)
 
-## Recommended Demo Flow
+## Local Run Summary
 
-### Admin
-- log in as admin
-- open dashboard
-- open employees
-- test management scope filter
-- create or edit employees
-- export CSV
+If you want the shortest working flow:
 
-### Manager
-- log in as `fajar.maulana@codeid.co.id`
-- open team page
-- add available employee to team
-- open attendance
-- add self attendance
-- open leave
-- request leave
+### Terminal 1
 
-### Approval Flow
-- log in as `yoga.prasetyo@codeid.co.id`
-- create a leave request
-- log out
-- log in as `dimas.kusuma@codeid.co.id`
-- approve the request from approvals page
+```powershell
+cd backend
+go run ./cmd/migrate up
+go run ./cmd/seed-admin
+go run ./cmd/seed-demo
+go run ./cmd/api
+```
 
-### Employee
-- log in as `nabila.putri@codeid.co.id`
-- create attendance
-- create leave request
-- update pending leave
-- open profile page
+### Terminal 2
 
-## Test Commands
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+Then open:
+
+- [http://localhost:5173](http://localhost:5173)
+
+## Common Problems
+
+### PostgreSQL connection fails
+
+Check:
+
+- PostgreSQL service is running
+- database `hrms` exists
+- `DB_USER` and `DB_PASSWORD` in `backend/.env` are correct
+
+### `JWT_ACCESS_SECRET and JWT_REFRESH_SECRET are required`
+
+This means:
+
+- `backend/.env` is missing
+- or the JWT variables are empty
+
+Make sure these exist in `backend/.env`:
+
+```env
+JWT_ACCESS_SECRET=change-me-access-secret
+JWT_REFRESH_SECRET=change-me-refresh-secret
+```
+
+### Frontend cannot call backend
+
+Check:
+
+- backend is running on port `8080`
+- `frontend/.env` contains:
+
+```env
+VITE_API_BASE_URL=http://localhost:8080/api/v1
+```
+
+### Migration says `no change`
+
+That usually means migrations already ran. It is not an error.
+
+## Useful Commands
 
 ### Backend tests
 
 ```powershell
-cd C:\laragon\www\HRMS\backend
+cd backend
 go test ./...
 ```
 
-### Frontend build
+### Frontend production build
 
 ```powershell
-cd C:\laragon\www\HRMS\frontend
+cd frontend
 npm run build
 ```
 
 ### Frontend E2E tests
 
 ```powershell
-cd C:\laragon\www\HRMS\frontend
+cd frontend
 npm run test:e2e
 ```
 
-Extra Playwright modes:
+## For Deployment
 
-```powershell
-npm run test:e2e:headed
-npm run test:e2e:debug
-```
+Production deployment docs are separated from local installation docs:
 
-## GitHub and Auto Deploy
+- [docs/github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
+- [docs/github-secrets-checklist.md](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
 
-This repo is prepared for GitHub CI/CD with:
+## Additional Documentation
 
-- [C:\laragon\www\HRMS\.github\workflows\ci.yml](C:\laragon\www\HRMS\.github\workflows\ci.yml)
-- [C:\laragon\www\HRMS\.github\workflows\deploy-frontend-vercel.yml](C:\laragon\www\HRMS\.github\workflows\deploy-frontend-vercel.yml)
-- [C:\laragon\www\HRMS\.github\workflows\deploy-backend-railway.yml](C:\laragon\www\HRMS\.github\workflows\deploy-backend-railway.yml)
-- [C:\laragon\www\HRMS\.github\workflows\migrate-neon.yml](C:\laragon\www\HRMS\.github\workflows\migrate-neon.yml)
-
-Deployment and secret setup guide:
-
-- [C:\laragon\www\HRMS\docs\github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
-- [C:\laragon\www\HRMS\docs\github-secrets-checklist.md](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
-
-## What The Automated Tests Cover
-
-### Backend
-- Argon2 hashing and verification
-- JWT generation and parsing
-- login, refresh, logout
-- admin employee CRUD
-- management scope filtering
-- employee finalized leave restrictions
-- manager approval rules
-- team manager attendance and team membership flow
-- overlapping secondary assignment rejection
-
-### Frontend E2E
-- auth flows for all roles
-- admin employee filtering, create/delete, export
-- team manager team flow
-- manager self attendance and self leave
-- subdepartment manager approval flow
-- employee attendance and leave flows
-- finalized leave lock behavior
-- profile database-backed selections
-
-## Notes
-
-- The backend integration suite creates a temporary PostgreSQL test database automatically.
-- The Playwright suite seeds backend data before running.
-- The E2E setup uses an isolated API port for browser tests.
-
-## Additional Docs
-
-- Backend docs: [C:\laragon\www\HRMS\backend\README.md](C:\laragon\www\HRMS\backend\README.md)
-- Frontend docs: [C:\laragon\www\HRMS\frontend\README.md](C:\laragon\www\HRMS\frontend\README.md)
-- Documentation index: [C:\laragon\www\HRMS\docs\README.md](C:\laragon\www\HRMS\docs\README.md)
-- Test accounts: [C:\laragon\www\HRMS\docs\test-accounts.md](C:\laragon\www\HRMS\docs\test-accounts.md)
-- GitHub deploy guide: [C:\laragon\www\HRMS\docs\github-actions-deploy.md](C:\laragon\www\HRMS\docs\github-actions-deploy.md)
-- GitHub secrets checklist: [C:\laragon\www\HRMS\docs\github-secrets-checklist.md](C:\laragon\www\HRMS\docs\github-secrets-checklist.md)
+- [backend/README.md](C:\laragon\www\HRMS\backend\README.md)
+- [frontend/README.md](C:\laragon\www\HRMS\frontend\README.md)
+- [docs/README.md](C:\laragon\www\HRMS\docs\README.md)
